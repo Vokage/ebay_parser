@@ -1,8 +1,6 @@
 # Ebay Parser
----
 > A simple command line interface to retrieve active listings for specified ebay accounts and write the data to excel.
 
----
 ## Prerequisites
 - [Python 3](https://www.python.org/downloads/)
 
@@ -12,7 +10,6 @@
 - [urllib](https://docs.python.org/3/library/urllib.html)
 - [argparse](https://docs.python.org/3/library/argparse.html)
 - [pipenv](https://docs.pipenv.org/en/latest/)
----
 ## Installation
 ```
 git clone https://github.com/Vokage/ebay_parser.git
