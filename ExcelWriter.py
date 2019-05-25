@@ -1,7 +1,6 @@
 import xlsxwriter
-
-
 class ExcelWriter:
+
     def append_excel_extension(file_name):
         # Add the excel extension if needed
         if not file_name.endswith(".xlsx"):

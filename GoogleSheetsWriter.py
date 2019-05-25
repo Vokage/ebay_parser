@@ -37,10 +37,9 @@ class GoogleSheetsWriter:
         for header in headers:
             header_names.append(header['name'])
 
-        index = 1
-        sheet.insert_row(header_names, index)
-        index += 1
-        for row in data:
-            sheet.insert_row(row, index)
-            index += 1
-
+        data.insert(0, header_names)
+        self.sh.values_update(
+            'Sheet1!A1',
+            params={'valueInputOption': 'RAW'},
+            body={'values': data}
+        )
