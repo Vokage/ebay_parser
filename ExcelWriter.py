@@ -45,28 +45,3 @@ class ExcelWriter:
 
         workbook.close()
 
-
-
-
-
-
-
-
-
-
-
-
-    # def write_to_excel_file(file_path, excel_options):
-    #     num_rows = len(excel_options['data'])  # includes the header
-    #     num_columns = len(excel_options['columns']) - 1
-    #
-    #     # Create a new excel worksheet
-    #     workbook = xlsxwriter.Workbook(file_path)
-    #     worksheet = workbook.add_worksheet("Inventory")
-    #
-    #     worksheet.add_table(first_row=0,
-    #                         first_col=0,
-    #                         last_row=num_rows,
-    #                         last_col=num_columns,
-    #                         options=excel_options)
-    #     workbook.close()
