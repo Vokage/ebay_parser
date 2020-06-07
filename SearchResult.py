@@ -1,22 +1,16 @@
+
 # Object representation of a search result
-class SearchResult(object):
-    def __init__(self, listing_id, title, price, account_name):
-        """
-        :param listing_id: The listing's id
-        :param title: The listing's title
-        :param price: The listing's price
-        """
-        self.listing_id = listing_id
-        self.title = title
-        self.price = price
-        self.account_name = account_name
+class SearchResult:
+    def __init__(self, context):
+        self._context = context
 
-    def to_arr(self):
-        return [self.account_name, self.listing_id, self.title, self.price]
+    def id(self):
+        return self._context.get('listingid')
 
-    def __str__(self):
-        """
-        String representation of object
-        :return: string representation of object
-        """
-        return self.account_name + ' ' + self.listing_id + ' ' + self.title + ' ' + self.price
+    def price(self):
+        # TODO: Make this not so horrendous
+        return self._context.find('li', {'class': 'lvprice'}).find('span', {'class': 'bold'}).text.replace('\t', '').replace('\n', '')
+
+    def title(self):
+        return self._context.find('h3', {'class': 'lvtitle'}).a.text.replace(
+            "New listing", "")
