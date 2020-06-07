@@ -2,12 +2,14 @@ import xlsxwriter
 
 
 class ExcelWriter:
+    @staticmethod
     def append_excel_extension(file_name):
         # Add the excel extension if needed
         if not file_name.endswith(".xlsx"):
             file_name = file_name + ".xlsx"
         return file_name
 
+    @staticmethod
     def write_to_excel_file(file_name, headers, data_list):
         workbook = xlsxwriter.Workbook(file_name)
         worksheet = workbook.add_worksheet("Inventory")
@@ -44,17 +46,6 @@ class ExcelWriter:
                 worksheet.write(row, i, data[i], col_formattings[i])
 
         workbook.close()
-
-
-
-
-
-
-
-
-
-
-
 
     # def write_to_excel_file(file_path, excel_options):
     #     num_rows = len(excel_options['data'])  # includes the header
