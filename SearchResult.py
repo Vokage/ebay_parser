@@ -9,8 +9,7 @@ class SearchResult:
 
     def price(self):
         # TODO: Make this not so horrendous
-        return self._context.find('li', {'class': 'lvprice'}).find('span', {'class': 'bold'}).text.replace('\t', '').replace('\n', '')
-
+        return self._context.find('li', {'class': 'lvprice'}).find('span', {'class': 'bold'}).text.replace('\t', '').replace('\n', '').split(' ')[0]
     def title(self):
         return self._context.find('h3', {'class': 'lvtitle'}).a.text.replace(
             "New listing", "")
