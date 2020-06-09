@@ -2,6 +2,7 @@ import argparse
 from pathlib import Path
 from ExcelWriter import ExcelWriter
 from EbayParser import EbayParser
+from GoogleSheetsWriter import GoogleSheetsWriter
 """
 Parse all active listings for specific accounts and put into an excel worksheet for inventory
 Excel workbook will be in the current directory
@@ -10,32 +11,22 @@ Script Usage:
     2. Use command line interface to interact with program and possible options
 """
 
-# Command line interface
 ap = argparse.ArgumentParser(prog="Ebay Parser",
                              description="EbayParser is a command line interface to" +
                              " help retrieve active listings for specified accounts" +
                              " and writing data to an excel file")
-
-# accounts argument (required)
-ap.add_argument("-a", "--accounts", nargs="+", required=True,
-                help="name of accounts (at least one required)")
-
-# output file name (optional)
+ap.add_argument("-a", "--accounts", nargs="+", required=True, help="name of accounts (at least one required)")
 default_file_name = "ebay_inventory.xlsx"
-ap.add_argument("-fn", "--filename", required=False,
-                default=default_file_name, help="output excel file name")
+ap.add_argument("-fn", "--filename", required=False, default=default_file_name, help="output excel file name")
+ap.add_argument("-p", "--path", required=False, default="", help="file path of destination")
+ap.add_argument("-gsurl", "--googlesheets-url", required=False, default="", help="URL of google sheet")
+ap.add_argument("-gs", "--googlesheets", required=False, default="", help="Use existing google sheets")
+ap.add_argument("-gs-c", "--googlesheets-credentials", required=False, default="", help="Path to google sheets credentials")
 
-# file path (optional)
-default_file_path = ""
-ap.add_argument("-p", "--path", required=False,
-                default=default_file_path, help="file path of destination")
-
-# Parse all arguments
 args = ap.parse_args()
 account_names = args.accounts
 file_name = ExcelWriter.append_excel_extension(args.filename)
 file_path = args.path
-# absolute path of new file
 new_file_path = str((Path(file_path) / file_name).absolute())
 
 
@@ -67,3 +58,8 @@ headers = [{'name': "User Name",
 
 # Write the results to the excel file
 ExcelWriter.write_to_excel_file(new_file_path, headers, normalized_data)
+
+if args.googlesheets:
+    gc = GoogleSheetsWriter(args.googlesheets_credentials)
+    gc.open_file_by_url(args.googlesheets_url)
+    gc.write_data(headers, normalized_data)
